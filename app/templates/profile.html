@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if session.logged_in %}
+	<div class="Site-body">
+		<div class="Site-left">
+		</div>
+		<main class="Site-content">
+			<div class="Course-list">
+				<h2>Choose a course to play:</h2>
+				{% if courseList != 'false' %}
+				<table class="Course-listSimple">
+					<tr>
+						<th>Course</th>
+						<th>Number of Holes</th>
+						<th>Average Par</th>
+					</tr>
+					{% for course in courseList %}
+					<tr>
+						<td>{{ course.courseName }}</td>
+						<td>{{ course.numberOfHoles }}</td>
+						<td>{{ course.par }}</td>
+					</tr>
+					{% endfor %}
+				</table>
+				{% else %}
+				<em>You have not added any courses to play</em>
+				{% endif %}
+				<form align="right" action="{{ url_for('add_course') }}">
+					<input type="submit" value="Add Course">
+				</form>
+			</div>
+		</main>
+		<div class="Site-right">
+		</div>
+	</div>
+{% else %}
+	<div class="Site-body">
+		<div class="Site-left">
+			<h2>Return To Home</h2>
+			<form action="{{ url_for('index') }}">
+				<input type="submit" value="Homepage">
+			</form>
+		</div>
+		<main class="Site-content">
+			<div class="Course-add">
+				<h2>Unauthorized</h2>
+				<h3>Please login</h2>
+			</div>
+		</main>
+		<div class="Site-right">
+		</div>
+	</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="header">
+	<h1>The Scorecard</h1>
+</div>
+<div class="content">
+	{% if session.logged_in %}
+	{% else %}
+	<div class="login">
+		<form action="{{ url_for('login') }}" method=post>
+			<h2>Login</h2>
+			<h3>Username:</h3>
+			<input type="text" name="username">
+			<h3>Password:</h3>
+			<input type="password" name="password">
+			<div>
+				<input type="submit" name="login">
+			</div>
+		</form>
+	</div>
+	{% endif %}
+	<div class="message">
+		<p>The Scorecard is a free site dedicated to keeping track of you disc golf games.
+			You can add new courses you play and track your score basket by basket. 
+			Additionally, you can invite your friends to a game and track their scores 
+			too!</p>
+	</div>
+	<div class="table">
+		<table class="exampleTable">
+			<tr>
+				<th>Course</th>
+				<th>Number of Holes</th>
+				<th>Average Par</th>
+				<th>Average Score</th>
+			</tr>
+			<tr>
+				<td>Ellicot</td>
+				<td>18</td>
+				<td>3</td>
+				<td>74</td>
+			</tr>
+			<tr>
+				<td>Beaver Island</td>
+				<td>18</td>
+				<td>5</td>
+				<td>105</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="footer">
+	Copyright © Sean Frischmann
+</div>
+{% endblock %}

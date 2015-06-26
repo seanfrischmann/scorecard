@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Track your scores</title>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	<body class="Site">
+		<header class="Site-header">
+			<h1>The Scorecard</h1>
+			{% if session.logged_in %}
+				<form  align="right" action="{{ url_for('logout') }}">
+					<input class="logout" type="image" src="static/images/logout.png" alt="Logout">
+				</form>
+			{% endif %}
+		</header>
+		{% for message in get_flashed_messages() %}
+		<div class=flash>{{ message }}</div>
+		{% endfor %}
+		{% block body %}{% endblock %}
+		<footer class="Site-footer">
+			Copyright © Sean Frischmann
+		</footer>
+	</body>
+</html>

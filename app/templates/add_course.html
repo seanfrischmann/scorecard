@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if session.logged_in %}
+	<div class="Site-body">
+		<div class="Site-left">
+		</div>
+		<main class="Site-content">
+			<div class="Course-add">
+				<h2>Add a Course</h2>
+				<form action="{{ url_for('post_course') }}" method=post>
+					<h3>Course Name</h3>
+					<input type="text" size="30" name="courseName">
+					<h3>Number of Baskets</h3>
+					<select onchange="holesSelected(this)" name="numberOfHoles">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+					</select>
+					<h3>Hole Number | Par</h3>
+					<div id="holes">
+						<p>Hole 1 : 
+							<input type="number" size="2" min="1" max="10" name="hole0">
+						</p>
+					</div>
+					<script>
+						function holesSelected(holes){
+							var div = document.getElementById('holes');
+							while(div.hasChildNodes()){
+								div.removeChild(div.lastChild);
+							}
+							for(i = 0;i < holes.value;i++){
+								div.appendChild(document.createTextNode("Hole "+(i+1)+" : "));
+								var input = document.createElement("input");
+								input.type = "number";
+								input.size = "2";
+								input.name = "hole"+i;
+								input.min = "1";
+								input.max = "10";
+								div.appendChild(input);
+								div.appendChild(document.createElement("br"));
+								div.appendChild(document.createElement("br"));
+							}
+							div.appendChild(document.createElement("br"));
+						}
+					</script>
+					<input type="submit" value="Add Course">
+				</form>
+			</div>
+		</main>
+		<div class="Site-right">
+		</div>
+	</div>
+{% else %}
+	<div class="Site-body">
+		<div class="Site-left">
+			<h2>Return To Home</h2>
+			<form action="{{ url_for('index') }}">
+				<input type="submit" value="Homepage">
+			</form>
+		</div>
+		<main class="Site-content">
+			<div class="Course-add">
+				<h2>Unauthorized</h2>
+				<h3>Please login</h2>
+			</div>
+		</main>
+		<div class="Site-right">
+		</div>
+	</div>
+{% endif %}
+{% endblock %}

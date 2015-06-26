@@ -1,0 +1,175 @@
+/****************
+ * Index Specific
+ * *************/
+body{
+	color: black;
+	background-color: #7AA3CC;
+}
+.Site, .Site-body{
+	display: flex;
+	flex-direction: column;
+}
+.Site{
+	min-height: 100vh;
+	margin: 0;
+}
+.Site-body{ flex: 1;}
+.Site-header, .Site-footer{
+	color: antiquewhite;
+	flex: none;
+}
+.Site-header{
+	background-color: #3D5266;
+	text-align:center;
+}
+.logout{
+	height: 50px;
+	float: right;
+}
+.Site-footer{
+	background-color: #1F2933;
+	text-align: center;
+	padding: 10px;
+}
+.Site-login div{
+	padding-top:20px;
+}
+.Site-left, .Site-right{
+	background-color: #99CCFF;
+	padding: 15px;
+}
+.Site-login{ text-align: center;}
+.Site-message{
+}
+.Site-content{ flex: 1;}
+.Site-table{
+	background-image: url("images/basket.jpg");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	padding: 20%;
+}
+.exampleTable{ visibility: hidden;}
+
+/*****************
+ * Course Specific
+ ****************/
+.Course-add, .Course-list{
+	background-color: #E0F0FF;
+	border: 1px solid;
+	border-color:#CCE6FF;
+	padding: 15px;
+}
+.Course-listSimple{
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+}
+.Course-listSimple td, th{
+	font-size: 1em;
+	padding: 3px 7px 2px 7px;
+}
+table.Course-listSimple tr:nth-child(even){
+	background-color: #CCE0CC;
+}
+table.Course-listSimple tr:nth-child(odd){
+	background-color: #99C299;
+}
+.Course-listSimple th{
+	font-size: 1.1em;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 4px;
+	background-color: #003D00;
+	color: antiquewhite;
+}
+.Course-add{
+	text-align: center;
+}
+
+/*************************
+ * Larger Screens Specifcs
+ * **********************/
+@media (min-device-width: 768px) and (min-width: 1080px){
+	/****************
+	 * Index Specific
+	 * *************/
+	body{
+		color: black;
+		background-image: url("images/background.jpg");
+		background-color: #cccccc;
+		background-repeat: no-repeat;
+		background-position: center 0%;
+	}
+	.Site-body{
+		flex-direction: row;
+	}
+	.Site-content{
+		background-image: none;
+		flex: 1;
+		padding: 15px;
+		margin: 45px;
+	}
+	.Site-left{
+		flex: 0 0 12em;
+		margin: 0;
+		text-align: left;
+	}
+	.Site-right{
+		flex: 0 0 12em;
+		margin: 0;
+		text-align: left;
+	}
+	.Site-login{
+		margin: 0;
+	}
+	.Site-message{
+		font-weight:bold;
+		background-color: #E0F0FF;
+		padding: 15px;
+		border: 1px solid;
+		border-color: grey;
+	}
+	.Site-message p{
+		visibility: visible;
+	}
+	.Site-table{
+		margin-top: 25px;
+		visibility: visible;
+		padding: 0;
+		background-image: none;
+	}
+	.exampleTable{
+		width:100%;
+		background-color: grey;
+		text-align: center;
+		visibility: visible;
+	}
+	table.exampleTable tr:nth-child(even){
+		background-color: #ADD6FF;
+	}
+	table.exampleTable tr:nth-child(odd){
+		background-color: #4C6680;
+		color: antiquewhite;
+	}
+	table.exampleTable th{
+		color: black;
+		background-color: #E0F0FF;
+	}
+	/*****************
+	 * Course Specific
+	 ****************/
+	.Course-add{
+		margin: 0 100px 0 100px;
+	}
+}
+.flash{
+	background: #cee5F5;
+	COLOR: BLACK;
+	padding: 0.5em;
+	border: 1px solid #aacbe2;
+}
+.error{ 
+	background: #f0d6d6;
+	padding: 0.5em;
+}

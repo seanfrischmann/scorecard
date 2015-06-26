@@ -1,0 +1,76 @@
+body{
+	color: #FAEBD7;
+	background-image: url("images/background.jpg");
+	background-color: #cccccc;
+	background-repeat: no-repeat;
+	background-position: center 0%;
+}
+.wrapper{
+	margin: 2em auto;
+	width: 65em;
+}
+.content{
+	padding: 65px;
+}
+.header{
+	border-bottom:5px groove;
+	background-color:black;
+	text-align:center;
+	height:70px;
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+}
+.login{
+	background-color:#AA3800;
+	padding:10px;
+	width:200px;
+	border:5px groove;
+	float:left;
+}
+.login div{
+	padding-top:20px;
+}
+.message{
+	font-weight:bold;
+	background-color: maroon;
+	padding:20px;
+	width: 560px;
+	border: 5px groove;
+	margin-left: 2em;
+	float: left;
+}
+.table{
+	background-color: maroon;
+	width: 600px;
+	border: 5px groove;
+	margin-left: 2em;
+	margin-top: 2em;
+	float: left;
+}
+table.exampleTable{
+	width:100%;
+	background-color: #f1f1c1;
+}
+table.exampleTable tr:nth-child(even){
+	background-color: #B94500;
+}
+table.exampleTable tr:nth-child(odd){
+	background-color: #D36300;
+}
+table.exampleTable th{
+	color:white;
+	background-color: black;
+}
+
+.footer{
+	text-align: center;
+	background:#C15700;
+	border-top: ridge;
+	width:100%;
+	height:30px;
+	position:absolute;
+	bottom:0;
+	left:0;
+}

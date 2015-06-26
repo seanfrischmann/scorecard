@@ -1,0 +1,5 @@
+CREATE TABLE courseList(
+	courseName VARCHAR(30) PRIMARY KEY,
+	numberOfHoles INTEGER NOt NULL,
+	par VARCHAR(30) NOT NULL
+);
