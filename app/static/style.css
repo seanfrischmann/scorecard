@@ -53,7 +53,8 @@ body{
 /*****************
  * Course Specific
  ****************/
-.Course-add, .Course-list{
+.Course-add, .Course-list, .Course-remove{
+	text-align: center;
 	background-color: #E0F0FF;
 	border: 1px solid;
 	border-color:#CCE6FF;
@@ -83,8 +84,9 @@ table.Course-listSimple tr:nth-child(odd){
 	background-color: #003D00;
 	color: antiquewhite;
 }
-.Course-add{
-	text-align: center;
+.Course-removeList{
+	text-align: left;
+	margin-left: 45%;
 }
 
 /*************************

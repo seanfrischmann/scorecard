@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if session.logged_in %}
+	<div class="Site-body">
+		<div class="Site-left">
+		</div>
+		<main class="Site-content">
+			<div class="Course-remove">
+				<h2> Choose a course to remove:</h2>
+				<form action="{{ url_for('remove_course') }}" method="post">
+					<div class="Course-removeList">
+						{% for course in courseList %}
+						<input type="radio" name="courseName" value="{{ course.courseName }}"> 
+						{{ course.courseName }}
+						<br><br>
+						{% endfor %}
+					</div>
+					<input type="submit" value="Remove">
+				</form>
+				<form style="padding:5px;" action="{{ url_for('profile') }}">
+					<input type="submit" value="Cancel">
+				</form>
+			</div>
+		</main>
+		<div class="Site-right">
+		</div>
+	</div>
+{% else %}
+	<div class="Site-body">
+		<div class="Site-left">
+			<h2>Return To Home</h2>
+			<form action="{{ url_for('index') }}">
+				<input type="submit" value="Homepage">
+			</form>
+		</div>
+		<main class="Site-content">
+			<div class="Course-add">
+				<h2>Unauthorized</h2>
+				<h3>Please login</h2>
+			</div>
+		</main>
+		<div class="Site-right">
+		</div>
+	</div>
+{% endif %}
+{% endblock %}

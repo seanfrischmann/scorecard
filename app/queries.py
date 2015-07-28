@@ -23,6 +23,22 @@ def getCourseList(data):
 		i += 1
 	return courseList
 
+def getCourseInfo(data):
+	course = data['database'].execute(
+			"SELECT * FROM courseList WHERE "
+			+"courseName = ?",[data['courseName']])
+	courseInfo = [dict(courseName=row[0], numberOfHoles=row[1], 
+		par=row[2]) for row in course.fetchall()]
+	par = courseInfo[0]['par'].split(' ')
+	parDict = dict()
+	j = 0
+	while j < len(par):
+		par[j] = int(par[j])
+		parDict[j+1] = par[j]
+		j += 1
+	courseInfo[0]['par'] = parDict
+	return courseInfo
+
 def courseExists(data):
 	ret = data['database'].execute(
 			"SELECT CASE WHEN EXISTS ( "
@@ -54,3 +70,8 @@ def postCourse(data):
 			message = 'There was a system error, course not added'
 	return message
 
+def removeCourse(data):
+	data['database'].execute("DELETE FROM courseList "
+			+"WHERE courseName = ?", [data['courseName']])
+	data['database'].commit()
+	return 'Course was successfully removed'

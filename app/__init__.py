@@ -51,6 +51,32 @@ def profile():
 def add_course():
 	return render_template('add_course.html')
 
+@app.route('/delete_course')
+def delete_course():
+	data = {
+			'database':g.db}
+	courseList = query.getCourseList(data)
+	return render_template('delete_course.html', courseList=courseList)
+
+@app.route('/remove_course', methods=['GET', 'POST'])
+def remove_course():
+	print ('here')
+	data = {
+			'database':g.db,
+			'courseName':request.form['courseName']}
+	print ('here')
+	flash(query.removeCourse(data))
+	print ('here')
+	return redirect(url_for('profile'))
+
+@app.route('/get_course/<courseName>')
+def get_course(courseName):
+	data = {
+			'database':g.db,
+			'courseName':courseName}
+	courseInfo = query.getCourseInfo(data)
+	return render_template('course_info.html', courseInfo=courseInfo)
+
 @app.route('/post_course', methods=['GET', 'POST'])
 def post_course():
 	i = 0

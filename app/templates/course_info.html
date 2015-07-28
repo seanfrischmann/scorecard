@@ -3,36 +3,29 @@
 {% if session.logged_in %}
 	<div class="Site-body">
 		<div class="Site-left">
+			<h2>Return To Home</h2>
+			<form action="{{ url_for('profile') }}">
+				<input type="submit" value="Homepage">
+			</form>
 		</div>
 		<main class="Site-content">
 			<div class="Course-list">
-				<h2>Choose a course to play:</h2>
-				{% if courseList != 'false' %}
+				{% for course in courseInfo %}
+				<h2>{{ course.courseName }}</h2>
+				<h3>Records</h3>
 				<table class="Course-listSimple">
 					<tr>
-						<th>Course</th>
-						<th>Number of Holes</th>
-						<th>Average Par</th>
+						<th>Hole Number</th>
+						<th>Par</th>
 					</tr>
-					{% for course in courseList %}
+					{% for hole in course.par %}
 					<tr>
-						<td>
-						<a href="{{ url_for('get_course', courseName=course.courseName) }}">
-								{{ course.courseName }}</a></td>
-						<td>{{ course.numberOfHoles }}</td>
-						<td>{{ course.par }}</td>
+						<td>{{ hole }}</td>
+						<td>{{ course.par[hole] }}</td>
 					</tr>
 					{% endfor %}
+				{% endfor %}
 				</table>
-				{% else %}
-				<em>You have not added any courses to play</em>
-				{% endif %}
-				<form align="left" style="float:left;" action="{{ url_for('add_course') }}">
-					<input type="submit" value="Add Course">
-				</form>
-				<form align="right" action="{{ url_for('delete_course') }}">
-					<input type="submit" value="Remove Course">
-				</form>
 			</div>
 		</main>
 		<div class="Site-right">
