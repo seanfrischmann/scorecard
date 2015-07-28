@@ -10,25 +10,31 @@
 		</div>
 		<main class="Site-content">
 			<div class="Course-list">
-				{% for course in courseInfo %}
-				<h2>{{ course.courseName }}</h2>
+				<h2>{{ courseInfo[0] }}</h2>
 				<h3>Records</h3>
 				<table class="Course-listSimple">
 					<tr>
-						<th>Hole Number</th>
+						<th>Game</th>
+						<th>Date</th>
 						<th>Par</th>
+						<th>Your Score</th>
 					</tr>
-					{% for hole in course.par %}
+					{% for info in courseInfo[1] %}
 					<tr>
-						<td>{{ hole }}</td>
-						<td>{{ course.par[hole] }}</td>
+						<td>{{ info.gameCount }}</td>
+						<td>{{ info.Timestamp }}</td>
+						<td>{{ info.par }}</td>
+						<td>{{ info.score }}</td>
 					</tr>
 					{% endfor %}
-				{% endfor %}
 				</table>
 			</div>
 		</main>
 		<div class="Site-right">
+			<h2>Start a game</h2>
+			<button>New Game</button>
+			<h2>Remove a game</h2>
+			<button>Delete Game</button>
 		</div>
 	</div>
 {% else %}

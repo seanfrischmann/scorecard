@@ -1,5 +1,13 @@
 CREATE TABLE courseList(
-	courseName VARCHAR(30) PRIMARY KEY,
-	numberOfHoles INTEGER NOt NULL,
+	courseId INTEGER PRIMARY KEY,
+	courseName VARCHAR(30) UNIQUE,
+	numberOfHoles INTEGER NOT NULL,
 	par VARCHAR(30) NOT NULL
+);
+CREATE TABLE gameList(
+	gameId INTEGER PRIMARY KEY,
+	courseId INTEGER,
+	score VARCHAR(30) NOT NULL,
+	Timestamp DATE DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY(courseId) REFERENCES courseList(courseId)
 );

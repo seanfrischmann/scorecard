@@ -9,8 +9,8 @@
 def getCourseList(data):
 	courses = data['database'].execute(
 			"SELECT * FROM courseList")
-	courseList = [dict(courseName=row[0], numberOfHoles=row[1], 
-		par=row[2]) for row in courses.fetchall()]
+	courseList = [dict(courseName=row[1], numberOfHoles=row[2], 
+		par=row[3]) for row in courses.fetchall()]
 	i = 0
 	while i < len(courseList):
 		par = courseList[i]['par'].split(' ')
@@ -23,20 +23,45 @@ def getCourseList(data):
 		i += 1
 	return courseList
 
+def gameExists(data):
+	ret = data['database'].execute(
+			"SELECT CASE WHEN EXISTS ( "
+			+"SELECT * FROM gameList) " 
+			+"THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END")
+	ret = [row[0] for row in ret.fetchall()]
+	return bool(ret[0])
+
 def getCourseInfo(data):
-	course = data['database'].execute(
-			"SELECT * FROM courseList WHERE "
-			+"courseName = ?",[data['courseName']])
-	courseInfo = [dict(courseName=row[0], numberOfHoles=row[1], 
-		par=row[2]) for row in course.fetchall()]
-	par = courseInfo[0]['par'].split(' ')
-	parDict = dict()
-	j = 0
-	while j < len(par):
-		par[j] = int(par[j])
-		parDict[j+1] = par[j]
-		j += 1
-	courseInfo[0]['par'] = parDict
+	if(gameExists(data)):
+		course = data['database'].execute(
+				"SELECT G.Timestamp, C.par, G.score FROM gameList AS G "
+				+"JOIN courseList AS C ON G.courseId=C.courseId "
+				+"WHERE C.courseName = ?",[data['courseName']])
+		courseInfo = [dict(Timestamp=row[0], par=row[1], 
+			score=row[2]) for row in course.fetchall()]
+		i = 0
+		while i < len(courseInfo):
+			#***Finding total par***#
+			par = courseInfo[i]['par'].split(' ')
+			j = 0
+			while j < len(par):
+				par[j] = int(par[j])
+				j += 1
+			finalPar = int(sum(par))
+			courseInfo[i]['par'] = finalPar
+			
+			#***Finding total score***#
+			score = courseInfo[i]['score'].split(' ')
+			j = 0
+			while j < len(score):
+				score[j] = int(score[j])
+				j += 1
+			finalScore = int(sum(par))
+			courseInfo[i]['score'] = finalScore
+			courseInfo[i]['gameCount'] = i+1
+			i += 1
+	else:
+		courseInfo = [dict(Timestamp='N/A', par='N/A', score='N/A', gameCount='N/A')]
 	return courseInfo
 
 def courseExists(data):

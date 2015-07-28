@@ -74,7 +74,7 @@ def get_course(courseName):
 	data = {
 			'database':g.db,
 			'courseName':courseName}
-	courseInfo = query.getCourseInfo(data)
+	courseInfo = [data['courseName'], query.getCourseInfo(data)]
 	return render_template('course_info.html', courseInfo=courseInfo)
 
 @app.route('/post_course', methods=['GET', 'POST'])
