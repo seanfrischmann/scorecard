@@ -51,6 +51,15 @@ def profile():
 def add_course():
 	return render_template('add_course.html')
 
+@app.route('/add_game/<courseName>')
+def add_game(courseName):
+	data ={
+			'database':g.db,
+			'courseName':courseName}
+	courseInfo = [courseName]
+	courseInfo.append(query.getCourseInfo(data))
+	return render_template('add_game.html', courseInfo=courseInfo)
+
 @app.route('/delete_course')
 def delete_course():
 	data = {
@@ -74,7 +83,7 @@ def get_course(courseName):
 	data = {
 			'database':g.db,
 			'courseName':courseName}
-	courseInfo = [data['courseName'], query.getCourseInfo(data)]
+	courseInfo = [data['courseName'], query.getCourseGames(data)]
 	return render_template('course_info.html', courseInfo=courseInfo)
 
 @app.route('/post_course', methods=['GET', 'POST'])

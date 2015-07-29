@@ -4,39 +4,31 @@
 	<div class="Site-body">
 		<div class="Site-left">
 			<h2>Return To Home</h2>
+			<p><em>Will not save current game</em></p>
 			<form action="{{ url_for('profile') }}">
 				<input type="submit" value="Homepage">
 			</form>
 		</div>
 		<main class="Site-content">
 			<div class="Course-list">
-				<h2>{{ courseInfo[0] }}</h2>
+				<h2>New Game for {{ courseInfo[0] }}</h2>
 				<h3>Records</h3>
 				<table class="Course-listSimple">
 					<tr>
-						<th>Game</th>
-						<th>Date</th>
+						<th>Hole Number</th>
 						<th>Par</th>
 						<th>Your Score</th>
 					</tr>
-					{% for info in courseInfo[1] %}
+					{% for hole in courseInfo[1]['holes'] %}
 					<tr>
-						<td>{{ info.gameCount }}</td>
-						<td>{{ info.Timestamp }}</td>
-						<td>{{ info.par }}</td>
-						<td>{{ info.score }}</td>
+						<td>{{ hole }}</td>
+						<td>{{ courseInfo[1]['par'][hole-1] }}</td>
 					</tr>
 					{% endfor %}
 				</table>
 			</div>
 		</main>
 		<div class="Site-right">
-			<h2>Start a game</h2>
-			<form action="{{ url_for('add_game', courseName=courseInfo[0]) }}">
-				<input type="submit" value="New Game">
-			</form>
-			<h2>Remove a game</h2>
-			<button>Delete Game</button>
 		</div>
 	</div>
 {% else %}

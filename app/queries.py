@@ -23,6 +23,23 @@ def getCourseList(data):
 		i += 1
 	return courseList
 
+def getCourseInfo(data):
+	courses = data['database'].execute(
+			"SELECT * FROM courseList "
+			+"WHERE courseName = ?",[data['courseName']])
+	courseInfo = [dict(numberOfHoles=row[2], 
+		par=row[3]) for row in courses.fetchall()]
+	courseInfo = courseInfo[0]
+	par = courseInfo['par'].split(' ')
+	courseInfo['par'] = par
+	i = 0
+	holes = []
+	while i < int(courseInfo['numberOfHoles']):
+		holes.append(i+1)
+		i += 1
+	courseInfo['holes'] = holes
+	return courseInfo
+
 def gameExists(data):
 	ret = data['database'].execute(
 			"SELECT CASE WHEN EXISTS ( "
@@ -31,7 +48,7 @@ def gameExists(data):
 	ret = [row[0] for row in ret.fetchall()]
 	return bool(ret[0])
 
-def getCourseInfo(data):
+def getCourseGames(data):
 	if(gameExists(data)):
 		course = data['database'].execute(
 				"SELECT G.Timestamp, C.par, G.score FROM gameList AS G "

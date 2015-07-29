@@ -37,6 +37,7 @@ body{
 .Site-left, .Site-right{
 	background-color: #99CCFF;
 	padding: 15px;
+	text-align:center;
 }
 .Site-login{ text-align: center;}
 .Site-message{
