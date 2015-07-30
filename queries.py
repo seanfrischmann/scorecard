@@ -6,6 +6,14 @@
 # Scorecard -- Score Keeping App
 # ===========================================================================
 
+def getNumberOfHoles(data):
+	numberOfHoles = data['database'].execute(
+			"SELECT numberOfHoles FROM courseList "
+			+"WHERE courseName = ?",[data['courseName']])
+	numberOfHoles = [row[0] for row in numberOfHoles.fetchall()]
+	numberOfHoles = numberOfHoles[0]
+	return int(numberOfHoles)
+
 def getCourseList(data):
 	courses = data['database'].execute(
 			"SELECT * FROM courseList")
@@ -73,7 +81,7 @@ def getCourseGames(data):
 			while j < len(score):
 				score[j] = int(score[j])
 				j += 1
-			finalScore = int(sum(par))
+			finalScore = int(sum(score))
 			courseInfo[i]['score'] = finalScore
 			courseInfo[i]['gameCount'] = i+1
 			i += 1
@@ -117,3 +125,21 @@ def removeCourse(data):
 			+"WHERE courseName = ?", [data['courseName']])
 	data['database'].commit()
 	return 'Course was successfully removed'
+
+def postGame(data):
+	courseId = data['database'].execute("SELECT courseId FROM courseList "
+			+"WHERE courseName = ?",[data['courseName']])
+	courseId = [row[0] for row in courseId.fetchall()]
+	courseId = int(courseId[0])
+	data['database'].execute("INSERT INTO gameList "
+			+"(courseId, score, Timestamp) "
+			+"VALUES (?,?,?)", [courseId, data['score'], data['date']])
+	data['database'].commit()
+	message = 'Game successfully added'
+	return message
+
+def removeGame(data):
+	data['database'].execute("DELETE FROM gameList "
+			+"WHERE gameId = ?", [data['gameId']])
+	data['database'].commit()
+	return 'Game was successfully removed'

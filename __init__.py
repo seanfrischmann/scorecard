@@ -51,6 +51,23 @@ def profile():
 def add_course():
 	return render_template('add_course.html')
 
+@app.route('/delete_game/<courseName>')
+def delete_game(courseName):
+	data = {
+			'database':g.db,
+			'courseName':courseName}
+	courseInfo = [data['courseName'], query.getCourseGames(data)]
+	return render_template('delete_game.html', courseInfo=courseInfo)
+
+@app.route('/remove_game/<courseName>', methods=['GET', 'POST'])
+def remove_game(courseName):
+	data = {
+			'database':g.db,
+			'gameId':request.form['gameId'],
+			'courseName':courseName}
+	flash(query.removeGame(data))
+	return redirect(url_for('get_course', courseName=courseName))
+
 @app.route('/add_game/<courseName>')
 def add_game(courseName):
 	data ={
@@ -59,6 +76,24 @@ def add_game(courseName):
 	courseInfo = [courseName]
 	courseInfo.append(query.getCourseInfo(data))
 	return render_template('add_game.html', courseInfo=courseInfo)
+
+@app.route('/post_game/<courseName>', methods=['GET', 'POST'])
+def post_game(courseName):
+	data ={
+			'database':g.db,
+			'date':request.form['date'],
+			'courseName':courseName}
+	numberOfHoles = query.getNumberOfHoles(data)
+	i = 1
+	score = ''
+	while i <= numberOfHoles:
+		score = score + request.form[str(i)]
+		if i is not numberOfHoles:
+			score = score + ' '
+		i += 1
+	data['score'] = score
+	flash(query.postGame(data))
+	return redirect(url_for('get_course', courseName=courseName))
 
 @app.route('/delete_course')
 def delete_course():

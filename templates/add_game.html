@@ -13,19 +13,28 @@
 			<div class="Course-list">
 				<h2>New Game for {{ courseInfo[0] }}</h2>
 				<h3>Records</h3>
-				<table class="Course-listSimple">
-					<tr>
-						<th>Hole Number</th>
-						<th>Par</th>
-						<th>Your Score</th>
-					</tr>
-					{% for hole in courseInfo[1]['holes'] %}
-					<tr>
-						<td>{{ hole }}</td>
-						<td>{{ courseInfo[1]['par'][hole-1] }}</td>
-					</tr>
-					{% endfor %}
-				</table>
+				<form action="{{ url_for('post_game', courseName=courseInfo[0]) }}" method="post">
+					<table class="Course-listSimple">
+						<tr>
+							<th>Hole Number</th>
+							<th>Par</th>
+							<th>Your Score</th>
+						</tr>
+						{% for hole in courseInfo[1]['holes'] %}
+						<tr>
+							<td>{{ hole }}</td>
+							<td>{{ courseInfo[1]['par'][hole-1] }}</td>
+							<td>
+								<input type="number" size="2" min="1" max="10" 
+								name="{{ hole }}">
+							</td>
+						</tr>
+						{% endfor %}
+					</table>
+					<p>Date: <input type="text" id="datepicker" name="date"></p>
+					<br>
+					<input type="submit" value="Finished">
+				</form>
 			</div>
 		</main>
 		<div class="Site-right">
